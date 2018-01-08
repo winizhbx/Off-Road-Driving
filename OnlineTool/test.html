@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Off Road Navigation</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css" rel="stylesheet">
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+
+
+    <style>
+
+        html, body {
+            height: 100%;
+            margin: 10px;
+            font-size:calc(95%);
+            padding-top: 30px;
+        }
+        .navbar-inverse .navbar-brand {
+            color: #ffcb05;
+            font-weight: bold;
+            font-size: calc(100% + 1vw);
+            text-align: center;
+            padding: 10px;
+            line-height: 19px;
+        }
+        @media (max-width: 480px) {
+            body{
+                padding-top:60px;
+            }
+            .navbar-inverse .navbar-brand {
+            color: #ffcb05;
+            font-weight: bold;
+            font-size: calc(100%);
+            text-align: center;
+            padding: 10px;
+            line-height: 19px;
+            }
+
+        }
+
+
+        .panel-heading h3{
+            font-size: calc(100%);
+        }
+        .panel-heading h4{
+            font-size: calc(100%);
+        }
+        .panel-custom-umich {
+            border-color: #00274C;
+        }
+        .panel-custom-umich > .panel-heading {
+            background: #00274C; 
+            color: #ffffff;
+            border-color: #00274C;
+        }
+        .btn-umich {
+            color: #fff;
+            background-color: #00274C;
+            border-color: #00274C;
+            font-size: calc(95%);
+        }
+        .navbar-inverse {
+            background-color: #00274C;
+            border-color: #00274C;
+        }
+        .navbar-inverse .navbar-brand {
+            color: #ffcb05;
+            font-weight: bold;
+            font-size: calc(100% + 1vw);
+            text-align: center;
+            padding: 10px;
+            line-height: 19px;
+        }
+        #map {
+            height: 100%;
+        }
+        #inputSlider .slider-selection {
+            background: #587abc;
+        }
+        #inputSlider .slider-handle{
+            border-bottom-color: #00274C;
+        }
+        #ticsSlider .slider-selection.tick-slider-selection {
+            background: #587abc;
+        }
+        #ticsSlider .slider-tick.in-selection {
+            background: #587abc;
+        }
+        #ticsSlider .slider-handle{
+            background: #00274C;
+        }
+        
+        .table thead>tr>th.vert-align{
+            vertical-align: middle;
+        }
+        .table thead>tr>th{
+            font-size: calc(90%);
+            text-align: center; 
+        }
+        .table tbody>tr>td{
+            font-size: calc(90%);
+            text-align: center; 
+        }
+        .slider {
+            width: 100% !important;
+        }
+        .select{
+            width: 100% !important;
+        }
+        .popover{
+            width: 100%; /* Max Width of the popover (depending on the container!) */
+        }
+        .popover-title {
+            color: black;
+            font-size: 10px;
+        }
+        .popover-content {
+            color: black;
+            font-size: 12px;
+        }
+        #legend {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            padding: 10px;
+            margin: 10px;
+            border: 3px solid #000;
+        }
+        #legend h3 {
+            margin-top: 0;
+        }
+        #legend img {
+            vertical-align: middle;
+        }
+    </style>
+  </head>
+
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" >
+                <span>
+                 Off-Road Online Navigation Planner</span></a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+          </div>
+          <div id="myNavbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="http://a2sys.engin.umich.edu" target="_blank">UM A2Sys Lab</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    
+    <div class="col-sm-3">
+      <div class="panel panel-custom-umich">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Location Elevation:</h3>
+        </div>
+        <div class="panel-body">
+            <label for="lat" class="col-xs-7"> Latitude [deg] (-90 ~ 90):</label>
+            <input onblur="updateLat();" class="col-xs-5" id="lat" type="text" 
+                   value="42.2808"></input>
+        
+            <label for="lon" class="col-xs-7"> Longitude [deg] (-180 ~ 180):</label>
+            <input onblur="updateLng();" class="col-xs-5" id="lon" type="text" 
+                   value="-83.7430"></input>
+        </div>
+      </div>
+
+      <div class="panel panel-custom-umich">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Start Location:</h3>
+        </div>
+        <div class="panel-body">
+            <label for="lat" class="col-xs-7"> Latitude [deg] (-90 ~ 90):</label>
+            <input class="col-xs-5" id="startlat" type="text" 
+                   value="42.2808"></input>
+        
+            <label for="lon" class="col-xs-7"> Longitude [deg] (-180 ~ 180):</label>
+            <input class="col-xs-5" id="startlon" type="text" 
+                   value="-83.7430"></input>
+        </div>
+      </div>
+
+      <div class="panel panel-custom-umich">
+        <div class="panel-heading">
+            <h3 class="panel-title"> End Location:</h3>
+        </div>
+        <div class="panel-body">
+            <label for="lat" class="col-xs-7"> Latitude [deg]:</label>
+            <input class="col-xs-5" id="endlat" type="text" 
+                   value="42.2808"></input>
+        
+            <label for="lon" class="col-xs-7"> Longitude [deg]:</label>
+            <input class="col-xs-5" id="endlon" type="text" 
+                   value="-83.7430"></input>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-custom-umich" id="map">
+
+    <script src="googlemap.js"></script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBsZPIhx8xgq9vDD1hzTTfBnRBQEc_PlM&callback=initMap">
+    </script>
+    </div>
+    
+  </body>
+</html>
+
