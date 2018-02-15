@@ -1,0 +1,16 @@
+{
+  "main": "googlemap.js",
+  "dependencies": {
+    "heap": "^0.2.6",
+    "priorityqueue": "^0.2.0",
+    "priorityqueuejs": "^1.0.0",
+    "queue-priority": "^1.0.0"
+  },
+  "keywords": [
+    "metaverse",
+    "virtual reality",
+    "augmented reality",
+    "snow crash"
+  ],
+  "description": "The Metaverse virtual reality. The final outcome of all virtual worlds, augmented reality, and the Internet."
+}

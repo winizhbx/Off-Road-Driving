@@ -184,11 +184,11 @@
         <div class="panel-body">
             <label for="lat" class="col-xs-7"> Latitude [deg] (-90 ~ 90):</label>
             <input onblur="updateLat();" class="col-xs-5" id="lat" type="text" 
-                   value="42.2808"></input>
+                   value="44.2062527"></input>
         
             <label for="lon" class="col-xs-7"> Longitude [deg] (-180 ~ 180):</label>
-            <input onblur="updateLng();" class="col-xs-5" id="lon" type="text" 
-                   value="-83.7430"></input>
+            <input onblur="updateLng();" class="col-xs-5" id="lng" type="text" 
+                   value="-119.5812443"></input>
         </div>
       </div>
 
@@ -198,12 +198,12 @@
         </div>
         <div class="panel-body">
             <label for="lat" class="col-xs-7"> Latitude [deg] (-90 ~ 90):</label>
-            <input class="col-xs-5" id="startlat" type="text" 
-                   value="42.2808"></input>
+            <input onblur="displayStartLocation();" class="col-xs-5" id="startlat" type="text" 
+                   value="44.20668098897284"></input>
         
             <label for="lon" class="col-xs-7"> Longitude [deg] (-180 ~ 180):</label>
-            <input class="col-xs-5" id="startlon" type="text" 
-                   value="-83.7430"></input>
+            <input onblur="displayStartLocation();" class="col-xs-5" id="startlng" type="text" 
+                   value="-119.57974433898926"></input>
         </div>
       </div>
 
@@ -212,23 +212,30 @@
             <h3 class="panel-title"> End Location:</h3>
         </div>
         <div class="panel-body">
-            <label for="lat" class="col-xs-7"> Latitude [deg]:</label>
-            <input class="col-xs-5" id="endlat" type="text" 
-                   value="42.2808"></input>
+            <label for="lat" class="col-xs-7"> Latitude [deg] (-90 ~ 90):</label>
+            <input onblur="displayEndLocation();" class="col-xs-5" id="endlat" type="text" 
+                   value="44.21232572468743"></input>
         
-            <label for="lon" class="col-xs-7"> Longitude [deg]:</label>
-            <input class="col-xs-5" id="endlon" type="text" 
-                   value="-83.7430"></input>
+            <label for="lon" class="col-xs-7"> Longitude [deg] (-180 ~ 180):</label>
+            <input onblur="displayEndLocation();" class="col-xs-5" id="endlng" type="text" 
+                   value="-119.58944320678711"></input>
         </div>
       </div>
     </div>
 
     <div class="panel panel-custom-umich" id="map">
-
-    <script src="googlemap.js"></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBsZPIhx8xgq9vDD1hzTTfBnRBQEc_PlM&callback=initMap">
+    <script type="text/javascript"
+        src="https://geographiclib.sourceforge.io/scripts/geographiclib-1.45.min.js">
     </script>
+    <!-- <script src="//cdn.rawgit.com/h2non/thread.js/0.1.16/thread.js"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBsZPIhx8xgq9vDD1hzTTfBnRBQEc_PlM"></script>
+    <script src="googlemap.js"></script>
+    <script src="PriorityQueue.js"></script>
+	<script type="text/javascript" src="heap.js"></script>
+
+    <!-- <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBsZPIhx8xgq9vDD1hzTTfBnRBQEc_PlM&callback=initMap">
+    </script> -->
     </div>
     
   </body>
